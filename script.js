@@ -1,4 +1,3 @@
-document.body.style.zoom = "120%";
 let gamePiece; // Pac-Man character
 let wallOne;
 const SPEED = 3; // Fixed speed constant for Pac-Man
@@ -16,10 +15,10 @@ function startGame() {
     wallFive = new Obstacle(550, 450, 650,25, "black")
 
     // Border Sides
-    BorderSide = new Obstacle(-10, 0, 10, window.innerHeight/2, "black")
-    BorderSide2 = new Obstacle(1024, 0, 10, window.innerHeight/2, "black")
-    BorderSide3 = new Obstacle(0, -10, window.innerWidth, 10, "black")
-    BorderSide4 = new Obstacle(0, 527, window.innerWidth, 10, 10, "black")
+    BorderSide = new Obstacle(-10, 0, 10, 525, "black")
+    BorderSide2 = new Obstacle(1024, 0, 10, 525, "black")
+    BorderSide3 = new Obstacle(0, -10, 1030, 10, "black")
+    BorderSide4 = new Obstacle(0, 527, 1030, 10, 10, "black")
 
     // Fruits
 
@@ -63,8 +62,8 @@ function startGame() {
 let gameArea = {
     canvas: document.createElement("canvas"),
     start() {
-        this.canvas.width = window.innerWidth / 2;
-        this.canvas.height = window.innerHeight / 2;
+        this.canvas.width = 1025;
+        this.canvas.height = 525;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, 20);
