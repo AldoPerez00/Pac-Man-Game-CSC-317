@@ -1,7 +1,7 @@
 let gamePiece; // Pac-Man character
 let wallOne;
 const SPEED = 3; // Fixed speed constant for Pac-Man
-const GHOST_SPEED = 2
+const GHOST_SPEED = 2;
 let walls = [];
 
 function startGame() {
@@ -16,7 +16,7 @@ function startGame() {
 
     // Border Sides
     BorderSide = new Obstacle(-10, 0, 10, 525, "black")
-    BorderSide2 = new Obstacle(1024, 0, 10, 525, "black")
+    BorderSide2 = new Obstacle(1025, 0, 10, 525, "black")
     BorderSide3 = new Obstacle(0, -10, 1030, 10, "black")
     BorderSide4 = new Obstacle(0, 527, 1030, 10, 10, "black")
 
@@ -34,14 +34,9 @@ function startGame() {
         new Component(15, 15, "red", 400, 400, [])
     ];
 
-    ghosts = [
-        new Component(25, 25, "blue", 300, 300, []),
-        new Component(25, 25, "pink", 400, 200, []),
-        new Component(25, 25, "orange", 500, 400, [])
-        ]
-
-
     // Creating this in a list so its easier to go through it instead of going one by one
+
+
     // I coudlve just made the objects in here remember for next time
     walls = [
         {x: wallOne.x, y: wallOne.y, width: wallOne.width, height: wallOne.height},
@@ -53,6 +48,11 @@ function startGame() {
         {x: BorderSide2.x, y: BorderSide2.y, width: BorderSide2.width, height: BorderSide2.height},
         {x: BorderSide3.x, y: BorderSide3.y, width: BorderSide3.width, height: BorderSide3.height},
         {x: BorderSide4.x, y: BorderSide4.y, width: BorderSide4.width, height: BorderSide4.height},
+    ]
+    ghosts = [
+        new Component(25, 25, "blue", 300, 300, walls),
+        new Component(25, 25, "pink", 400, 200, walls),
+        new Component(25, 25, "orange", 500, 400, walls)
     ]
     gamePiece = new Component(25, 25, "yellow", 10, 10, walls);
 
@@ -92,9 +92,7 @@ function checkFruitCollision() {
     }
 }
 
-window.onload = function() {
-    document.getElementById('zoom-instructions').style.display = "block";
-};
+
 
 function Obstacle(x, y, width, height, color) {
     this.width = width;
@@ -173,7 +171,8 @@ function Component(width, height, color, x, y, others) {
                 this.y -= SPEED;
             }
             if (this.direction === "down") {
-                this.y += SPEED;}
+                this.y += SPEED;
+            }
             if (this.direction === "left") {
                 this.x -= SPEED
             }
@@ -189,17 +188,19 @@ function moveGhost(ghost) {
         ghost.direction = directions[Math.floor(Math.random() * directions.length)];
     }
 
-    if (ghost.direction === "up") {
-        ghost.y -= GHOST_SPEED;
-    }
-    if (ghost.direction === "down") {
-        ghost.y += GHOST_SPEED;
-    }
-    if (ghost.direction === "left") {
-        ghost.x -= GHOST_SPEED;
-    }
-    if (ghost.direction === "right") {
-        ghost.x += GHOST_SPEED;
+    if(!ghost.noForward()){
+        if (ghost.direction === "up") {
+            ghost.y -= GHOST_SPEED;
+        }
+        if (ghost.direction === "down") {
+            ghost.y += GHOST_SPEED;
+        }
+        if (ghost.direction === "left") {
+            ghost.x -= GHOST_SPEED;
+        }
+        if (ghost.direction === "right") {
+            ghost.x += GHOST_SPEED;
+        }
     }
 }
 
